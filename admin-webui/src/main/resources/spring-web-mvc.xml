@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.zz.crowd.mvc"/>
+
+    <mvc:annotation-driven/>
+
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="errorView" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception" >login-admin</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!--直接将请求与视图相关联 不需单独写controller-->
+    <mvc:view-controller path="/admin/do/login/page" view-name="login-admin"/>
+    <mvc:view-controller path="/admin/do/main/page" view-name="admin-main"/>
+    <mvc:view-controller path="/admin/do/add/page" view-name="admin-add"/>
+    <mvc:view-controller path="/role/do/get/page" view-name="role-page"/>
+    <mvc:view-controller path="/menu/do/get/page" view-name="menu-page"/>
+
+
+    <!--&lt;!&ndash;拦截器配置&ndash;&gt;
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            &lt;!&ndash;不拦截的页面&ndash;&gt;
+            <mvc:exclude-mapping path="/admin/do/login/page"/>
+            <mvc:exclude-mapping path="/admin/do/login"/>
+            <mvc:exclude-mapping path="/admin/do/loginout"/>
+            <mvc:exclude-mapping path="/admin/do/loginout"/>
+            <mvc:exclude-mapping path="/jquery/**"/>
+            <mvc:exclude-mapping path="/bootstrap/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/script/**"/>
+            <mvc:exclude-mapping path="/ztree/**"/>
+            <mvc:exclude-mapping path="/layer/**"/>
+            <mvc:exclude-mapping path="/myfunction/**"/>
+            <bean class="com.zz.crowd.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+
+    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
+    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/script/**" location="/script/"/>
+    <mvc:resources mapping="/ztree/**" location="/ztree/"/>
+    <mvc:resources mapping="/layer/**" location="/layer/"/>
+    <mvc:resources mapping="/myfunction/**" location="/myfunction/"/>
+
+
+</beans>
